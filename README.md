@@ -1,6 +1,6 @@
 # Vet Clinic Database
 
-- This project entails a database for a vet clinic.
+This is a relational database for a vet clinic.
 
 ## Getting Started
 
