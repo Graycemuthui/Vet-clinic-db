@@ -1,5 +1,7 @@
 /*Queries that provide answers to the questions from all projects.*/
 
+-- CREATE TABLES. 
+
 -- Find all animals whose name ends in "mon".
 SELECT * FROM animals WHERE name LIKE '%mon';  
 
@@ -32,6 +34,11 @@ UPDATE animals SET species = 'pokemon' WHERE species IS NULL;
 
 -- Delete all animals born after Jan 1st, 2022.
 DELETE FROM animals where date_of_birth > '2022-01-01'
+
+-- UPDATE TABLES.
+
+-- UPDATE the animals table by setting the species column to unspecified, then roll back the change
+ ALTER TABLE animals RENAME COLUMN species TO unspecified;
 
 -- Update all animals' weight to be their weight multiplied by -1.
 UPDATE animals SET weight_kg  = (weight_kg * (-1));
