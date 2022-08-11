@@ -1,5 +1,5 @@
 /* Database schema to keep the structure of entire database. */
-
+-- Create table for animals
 CREATE TABLE animals (
     id INT GENERATED ALWAYS AS IDENTITY,
     name VARCHAR(100) NOT NULL,
@@ -11,16 +11,24 @@ CREATE TABLE animals (
     PRIMARY KEY(id)
 );
 
+-- Create table for owners
 CREATE TABLE owners (
-    id BIGSERIAL PRIMARY KEY,
+    id INT GENERATED ALWAYS AS IDENTITY,
     full_name VARCHAR(100) NOT NULL,
-    age INT NOT NULL
-    PRIMARY KEY(owners_id)
-    
-)
+    age INT NOT NULL,
+    PRIMARY KEY(id)  
+);
 
+-- Create table for species
 CREATE TABLE species (
-    id BIGSERIAL PRIMARY KEY,
+    id INT GENERATED ALWAYS AS IDENTITY,
     name VARCHAR(100) NOT NULL,
-    PRIMARY KEY(species_id)
-)
+    PRIMARY KEY(id)
+);
+
+-- Add column species_id which is a foreign key referencing species table
+ALTER TABLE animals ADD COLUMN species_id INT REFERENCES species(id);
+
+-- Add column owner_id which is a foreign key referencing the owners table
+ALTER TABLE animals ADD COLUMN owners_id INT REFERENCES owners(id);
+
