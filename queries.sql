@@ -33,7 +33,7 @@ UPDATE animals SET species = 'digimon' WHERE name LIKE '%mon';
 UPDATE animals SET species = 'pokemon' WHERE species IS NULL;
 
 -- Delete all animals born after Jan 1st, 2022.
-DELETE FROM animals where date_of_birth > '2022-01-01'
+DELETE FROM animals where date_of_birth > '2022-01-01';
 
 -- UPDATE TABLES.
 
@@ -63,4 +63,8 @@ SELECT MAX(weight_kg), MIN(weight_kg) FROM animals;
 
 -- What is the average number of escape attempts per animal type of those born between 1990 and 2000
 SELECT AVG(escape_attempts) FROM animals WHERE date_of_birth BETWEEN '1990-01-01' AND '2000-12-31' GROUP BY animals;
+
+-- QUERY MULTIPLE TABLES.
+-- Modify your inserted animals so it includes the species_id value:
+-- If the name ends in "mon" it will be Digimon
 

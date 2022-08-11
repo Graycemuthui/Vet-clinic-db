@@ -26,6 +26,9 @@ CREATE TABLE species (
     PRIMARY KEY(id)
 );
 
+-- Remove column species
+ALTER TABLE animals DROP COLUMN species;
+
 -- Add column species_id which is a foreign key referencing species table
 ALTER TABLE animals ADD COLUMN species_id INT REFERENCES species(id);
 
