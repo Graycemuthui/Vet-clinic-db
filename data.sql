@@ -26,6 +26,8 @@ INSERT INTO owners (full_name, age) VALUES ('Jodie Whittaker', '38');
 INSERT INTO species (name) VALUES ('Pokemon');
 INSERT INTO species (name) VALUES ('Digimon');
 
+UPDATE species SET species.name = 'Pokemon' where species.hgqid = 2; 
+
 -- If the name ends in "mon" it will be Digimon
 UPDATE animals SET species_id = 2 WHERE name LIKE '%mon';
 
