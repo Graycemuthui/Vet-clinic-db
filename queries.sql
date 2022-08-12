@@ -88,3 +88,23 @@ SELECT animals.name FROM animals INNER JOIN owners ON owners.id = owners_id AND 
 
 -- Who owns the most animals?
 SELECT owners.full_name AS fullName, COUNT(*) FROM owners INNER JOIN animals ON owners.id = owners_id GROUP BY fullName ORDER BY count DESC;
+
+-- JOIN TABLES
+-- Who was the last animal seen by William Tatcher
+SELECT animals.name FROM animals 
+INNER JOIN visits ON animals.id = visits.animal_id
+INNER JOIN vets ON vets.id = visits.vet_id
+WHERE vets.name = 'William Tatcher'
+AND visits.date_of_visit = (SELECT MAX(visits.date_of_visit) FROM visits JOIN vets ON vets.id = visits.vet_id WHERE vets.name = 'William Tatcher');
+
+  -- How many different animals did Stephanie Mendez see
+SELECT DISTINCT COUNT(animals.name) FROM animals
+JOIN visits ON animals.id = visits.animal_id
+JOIN vets ON vets.id = visits.vet_id
+WHERE vets.name = 'Stephanie Mendez';
+
+-- List all vets and their specialties, including vets with no specialties.
+SELECT vets.name, species.name FROM vets
+FULL OUTER JOIN specialization ON vets.id = specialization.vet_id
+FULL OUTER JOIN species ON species.id = specialization.species_id
+ORDER BY vets.id;
