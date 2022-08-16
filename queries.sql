@@ -26,25 +26,36 @@ SELECT * FROM animals WHERE name <> 'Gabumon';
 -- Find all animals with a weight between 10.4kg and 17.3kg (including the animals with the weights that equals precisely 10.4kg or 17.3kg)
 SELECT * FROM animals WHERE weight_kg BETWEEN 10.4 AND 17.3;
 
+BEGIN;
 -- Update the animals table by setting the species column to digimon for all animals that have a name ending in mon.
 UPDATE animals SET species = 'digimon' WHERE name LIKE '%mon';
 
 -- Update the animals table by setting the species column to pokemon for all animals that don't have species already set.
 UPDATE animals SET species = 'pokemon' WHERE species IS NULL;
 
+COMMIT;
+
 -- Delete all animals born after Jan 1st, 2022.
 DELETE FROM animals where date_of_birth > '2022-01-01';
 
 -- UPDATE TABLES.
+BEGIN;
+UPDATE animal SET species = 'unspecified';
+SELECT * from animal;
+ROLLBACK;
+SELECT * from animal;
 
--- UPDATE the animals table by setting the species column to unspecified, then roll back the change
- ALTER TABLE animals RENAME COLUMN species TO unspecified;
+
+-- TRANSACTION
 
 -- Update all animals' weight to be their weight multiplied by -1.
-UPDATE animals SET weight_kg  = (weight_kg * (-1));
-
--- Update all animals' weights that are negative to be their weight multiplied by -1.
-UPDATE animals SET weight_kg = weight_kg * -1 WHERE weight_kg = -1;
+BEGIN;
+DELETE FROM animal WHERE data_of_birth > 'January 1, 2022';
+SAVEPOINT SP1;
+UPDATE animal SET weight_kg = (weight_kg * -1);
+ROLLBACK TO SP1;
+UPDATE animal SET weight_kg = (weight_kg * -1) WHERE weight_kg < 0;
+COMMIT;
 
 -- How many animals are there
 SELECT COUNT(*) FROM animals;
@@ -153,3 +164,7 @@ JOIN vets on vets.id = visits.vet_id
 JOIN species on species.id = animals.species_id
 WHERE vets.name = 'Maisy Smith'
 GROUP by species.name ORDER BY count DESC lIMIT 1;
+
+EXPLAIN ANALYZE SELECT COUNT(*) FROM visits where animal_id = 4;
+EXPLAIN ANALYZE SELECT * FROM visits where vet_id = 2;
+EXPLAIN ANALYZE SELECT * FROM owners where email = 'owner_18327@mail.com';
