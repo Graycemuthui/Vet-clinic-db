@@ -2,6 +2,10 @@
 
 This is a relational database for a vet clinic.
 
+## Screenshot 
+
+![Vet clinic](https://user-images.githubusercontent.com/95374858/184876067-1d58cbad-2836-4aeb-8d6d-5ec699c0de0b.png)
+
 ## Getting Started
 
 This repository includes files with plain SQL that can be used to recreate a database:
